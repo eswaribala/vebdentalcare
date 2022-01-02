@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:aliceblue}
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.toast-top-center {
+  top: 12px;
+  left: 50%;
+  margin-left: -150px;
+}
+@media all and (max-width: 240px) {
+  .toast-top-center {
+    margin-left: -54px;
+  }
+}
+@media all and (min-width: 241px) and (max-width: 320px) {
+  .toast-top-center {
+    margin-left: -64px;
+  }
+}
+@media all and (min-width: 321px) and (max-width: 480px) {
+  .toast-top-center {
+    margin-left: -96px;
+  }
+}
