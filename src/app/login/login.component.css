@@ -1,0 +1,43 @@
+.img{
+  width:100px;
+
+}
+.mat-form-field{
+  width:100%;
+}
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: navy;
+  animation: spinner .100000s linear infinite;
+}
+.avatar {
+  background-image: url(src/assets/veblogo.jpg);
+  animation: none;
+  background-size: 100px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: navy;
+  animation: spinner 1s linear infinite;
+}

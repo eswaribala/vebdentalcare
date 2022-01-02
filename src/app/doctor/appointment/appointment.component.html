@@ -1,0 +1,86 @@
+<div class="form-row">
+  <div class="form-group col-md-12">
+    <mat-form-field>
+      <mat-placeholder>
+        <mat-icon>
+          medication
+        </mat-icon>
+        Doctor Name
+      </mat-placeholder>
+
+      <mat-select (selectionChange)="getMobileNo($event)" >
+        <mat-option *ngFor="let doctor of doctors" [value]="doctor.mobileNo">
+          {{doctor.firstName}}
+        </mat-option>
+      </mat-select>
+
+
+    </mat-form-field>
+  </div>
+</div>
+
+
+<form  [formGroup]="appointmentFormGroup">
+
+  <input type="checkbox" formControlName="published"> Published
+  <div *ngIf="appointmentFormGroup.controls.published.value">
+
+  <!-- Add items dynamically-->
+  <div class="container">
+     <mat-label>Appointment Timing</mat-label>
+
+    <div formArrayName="appointments" *ngFor="let appt of appointmentFormGroup.controls.appointments?.value; let i = index">
+      <ng-container [formGroupName]="i">
+          <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="inputDay">Day</label>
+            <select id="inputDay" class="form-control" formControlName="day" >
+              <option selected>Choose...</option>
+              <option>Monday</option>
+              <option>Tuesday</option>
+              <option>Wednesday</option>
+              <option>Thursday</option>
+              <option>Friday</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputFromTime">Start Time</label>
+            <input type="time" class="form-control" id="inputFromTime"  placeholder="From Time" formControlName="fromTime" autocomplete="off">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputToTime">End Time</label>
+            <input type="time" class="form-control" id="inputToTime"  placeholder="From Time" formControlName="toTime" autocomplete="off">
+          </div>
+
+
+
+          </div>
+      </ng-container>
+
+  </div>
+
+    <div class="form-row" >
+      <div class="form-group col-md-4">
+    <button mat-fab color="primary" type="submit" (click)="onSubmit()"  style="float: left">
+      <mat-icon>save</mat-icon>
+    </button>
+      </div>
+      <div class="form-group col-md-4">
+
+        <button type="button"  color="primary" mat-fab (click)="addItems()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <div class="form-group col-md-4">
+        <button mat-fab color="warn" type="reset">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+
+</form>

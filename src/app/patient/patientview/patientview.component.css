@@ -1,0 +1,54 @@
+.mat-header-row
+{
+  background-color: darkblue;
+
+
+}
+.mat-header-cell
+{
+  color:white;
+  font-weight: bold;
+
+}
+
+.mat-table
+{
+  width:100%;
+  margin-top: 2%;
+
+  font-size: small;
+
+
+}
+
+.mat-cell{
+  color:mediumblue;
+
+
+
+}
+
+.mat-paginator
+{
+
+  color:mediumblue;
+  font-weight: bold;
+}
+.navbar{
+  background-color:navy;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-around;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.multicolortext {
+  background-image: linear-gradient(to left, white,darkblue,navy);
+  -webkit-background-clip: text;
+  font-size: larger;
+  font-weight: bold;
+  color: transparent;
+  font-family: "Lucida Calligraphy"
+}

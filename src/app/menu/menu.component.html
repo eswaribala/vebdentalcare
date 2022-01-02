@@ -1,0 +1,24 @@
+<div class="form-row" >
+  <div class="col-md-2" style="margin-top: 3%;margin-left: -5%">
+  <p-panelMenu [model]="data">
+
+  </p-panelMenu>
+  </div>
+  <div class="col-md-6" style="margin-left:10%">
+
+    <router-outlet >
+
+      <div class="basic-container">
+        <mat-spinner strokeWidth="10" mode="determinate"
+                     value="100" class="avatar" [diameter]="100" *ngIf="loading"></mat-spinner>
+
+      </div>
+
+    </router-outlet>
+  </div>
+
+
+  </div>
+
+
+

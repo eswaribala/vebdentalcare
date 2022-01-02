@@ -1,0 +1,94 @@
+mat-grid-tile {
+  background: gold;
+  width:100%;
+  color:navy;
+  font-weight: bold;
+  text-align: left;
+}
+mat-grid-list{
+  width:100%;
+  text-align: left;
+}
+.vl {
+  border-left: 10px solid yellow;
+  margin-right: 2%;
+}
+
+.treatment{
+  width:100%;
+  margin-left: 2%;
+}
+.treatment th{
+  background-color: navy;
+  color:white;
+}
+
+.container{
+  background-color: yellow;
+  color: navy;
+  width:150%;
+  font-size: x-large;
+  font-weight: bold;
+}
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: navy;
+  animation: spinner .100000s linear infinite;
+}
+.avatar {
+  background-image: url(src/assets/veblogo.jpg);
+  animation: none;
+  background-size: 100px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: navy;
+  animation: spinner 5s linear infinite;
+}
+.mat-button:disabled,button:disabled,
+button[disabled],.mat-button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+.toast-top-center {
+  top: 12px;
+  left: 50%;
+  margin-left: -150px;
+}
+@media all and (max-width: 240px) {
+  .toast-top-center {
+    margin-left: -54px;
+  }
+}
+@media all and (min-width: 241px) and (max-width: 320px) {
+  .toast-top-center {
+    margin-left: -64px;
+  }
+}
+@media all and (min-width: 321px) and (max-width: 480px) {
+  .toast-top-center {
+    margin-left: -96px;
+  }
+}

@@ -1,0 +1,142 @@
+
+<mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="personalFormGroup" label="Patient Information">
+<form autocomplete="off" [formGroup]="personalFormGroup">
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputTitle">Title</label>
+      <select id="inputTitle" class="form-control" formControlName="title" >
+        <option selected>Choose...</option>
+        <option>Mr</option>
+        <option>Mrs</option>
+        <option>Ms</option>
+        <option>Dr</option>
+        <option>Er</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputFirstName">First Name</label>
+      <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" formControlName="firstName" autocomplete="off">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputLastName">Last Name</label>
+      <input type="text" class="form-control" id="inputLastName" placeholder="Last Name"  formControlName="lastName"  autocomplete="off">
+    </div>
+  </div>
+
+ <div class="form-row">
+   <div class="form-group col-md-4">
+     <label for="inputDOB">DOB</label>
+     <input type="text"
+            id="inputDOB"
+            class="form-control"
+            pattern="yyyy-MM-dd"
+            placeholder="Datepicker" formControlName="dob"
+            [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
+            bsDatepicker>
+   </div>
+   <div class="form-group col-md-4">
+     <label for="inputGender">Gender</label>
+     <select id="inputGender" class="form-control" formControlName="gender" >
+       <option selected>Choose...</option>
+       <option>Male</option>
+       <option>Female</option>
+     </select>
+   </div>
+   <div class="form-group col-md-4">
+     <label for="inputMobileNo">Mobile No</label>
+     <input type="number" class="form-control" id="inputMobileNo" placeholder="Mobile No" formControlName="mobileNo"  autocomplete="off">
+   </div>
+ </div>
+  <div class="form-group">
+    <label for="inputAddress1">Address1</label>
+    <input type="text" class="form-control" id="inputAddress1" placeholder="1234 Main St" formControlName="address1" >
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" formControlName="address2" >
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity" formControlName="city" >
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">State</label>
+      <select id="inputState" class="form-control" formControlName="state" >
+        <option selected>Choose...</option>
+        <option>TamilNadu</option>
+        <option>Karnataka</option>
+        <option>Pondicherry</option>
+        <option>AndhraPradesh</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip" formControlName="zip" >
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck" formControlName="checkme" >
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+
+  <button type="submit" class="btn" mat-button matStepperNext style="background-color: navy;color: white">Next</button>
+</form>
+  </mat-step>
+  <mat-step [stepControl]="historyFormGroup" label="Previous Medical History">
+    <form [formGroup]="historyFormGroup">
+      <div class="form-row">
+
+
+        <div class="form-group col-md-12">
+          <label for="inputPrevMedicalHistory">Medical History</label>
+          <textarea type="text" class="form-control" id="inputPrevMedicalHistory"
+                    placeholder="Medical History" rows="5" formControlName="prevMedicalHistory"  autocomplete="off"></textarea>
+        </div>
+        </div>
+
+      <div class="form-row">
+
+        <div class="form-group col-md-12">
+          <label for="inputMobileNo">Dental History</label>
+          <textarea type="text" class="form-control" id="inputPrevDentalHistory" rows="5"
+                    placeholder="Dental History" formControlName="prevDentalHistory"  autocomplete="off"></textarea>
+        </div>
+
+        </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+        <button mat-button matStepperPrevious class="btn" style="background-color: navy;color: white">Back</button>
+        </div>
+        <div class="form-group col-md-6">
+        <button mat-button matStepperNext class="btn" style="background-color: navy;color: white">Next</button>
+        </div>
+      </div>
+
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+      <button mat-button matStepperPrevious class="btn" style="background-color: navy;color: white">Back</button>
+      </div>
+      <div class="form-group col-md-4">
+        <button mat-button class="btn" (click)="save()" style="background-color: navy;color: white">Done</button>
+      </div>
+      <div class="form-group col-md-4">
+      <button mat-button (click)="stepper.reset()" class="btn" style="background-color: navy;color: white">Reset</button>
+      </div>
+    </div>
+  </mat-step>
+</mat-stepper>
+<div class="alert alert-success" *ngIf="isSuccessful">
+  Patient registration is successful!
+</div>

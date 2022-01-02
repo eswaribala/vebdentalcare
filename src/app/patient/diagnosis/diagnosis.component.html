@@ -1,0 +1,822 @@
+<div class="container">
+<div class="form-row" style="margin-bottom: 3%"  *ngIf="this.patient">
+  <div class="col-md-6" >
+    <mat-placeholder>
+      <mat-icon>
+        person
+      </mat-icon>
+      {{patient.title}}.{{patient.firstName}} {{patient.lastName}}
+    </mat-placeholder>
+
+  </div>
+  <div class="col-md-6">
+    {{patient.gender}}
+  </div>
+</div>
+
+<div class="form-row" style="margin-bottom: 3%"  *ngIf="this.patient">
+  <div class="col-md-6">
+    <mat-placeholder>
+      <mat-icon>
+        event
+      </mat-icon>
+      DOB: {{patient.dob.toLocaleString()}}
+    </mat-placeholder>
+
+  </div>
+  <div class="col-md-6"  *ngIf="this.patient">
+    <mat-placeholder>
+      <mat-icon>
+        phone
+      </mat-icon>
+      {{patient.mobileNo}}
+    </mat-placeholder>
+
+  </div>
+</div>
+<div class="form-row" style="margin-bottom: 3%"  *ngIf="this.doctors?.length>0">
+  <div class="col-md-6">
+    <mat-placeholder>
+      <mat-icon>
+        person
+      </mat-icon>
+      Doctor
+    </mat-placeholder>
+
+    <mat-select (selectionChange)="getDoctorMobileNo($event)">
+
+      <mat-option *ngFor="let doctor of doctors" [value]="doctor.mobileNo">
+        Dr {{doctor.firstName}}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="col-md-6">
+    <label>Appointment Date and Time</label>
+    <input  type="datetime-local" id="doa" [(ngModel)]="selectedDate"  (change)="getPatientAppointmentNo()"/>
+  </div>
+</div>
+
+<div class="form-row" style="margin-bottom: 3%"  *ngIf="this.patient">
+  <div class="col-md-6">
+    <label >Appointment No : {{this.appointmentNo}}</label>
+  </div>
+  <div class="col-md-6">
+    <label>Patient From: {{patient.city}}</label>
+  </div>
+</div>
+</div>
+
+<div class="form-row" style="width:150%;overflow-x: hidden;">
+<div class="col-md-12">
+<mat-tab-group backgroundColor="primary"  dynamicHeight dynamicWidth>
+
+  <mat-tab label="Examination" >
+    <mat-tab-group dynamicHeight dynamicWidth>
+      <mat-tab label="Examination">
+        <form [formGroup]="patientAppointmentFormGroup" (ngSubmit)="saveExamination();" >
+
+          <div class="form-row">
+            <div class="col-md-12">
+              <mat-form-field>
+                <mat-placeholder>
+                  <mat-icon>assignment</mat-icon>
+                  Chief Complaint
+                </mat-placeholder>
+                <mat-select formControlName="complaint" multiple >
+                  <input id="csearchTxt" matInput placeholder="search">
+                  <mat-option *ngFor="let complaint of complaints | diagnosisSearch : csearchTxt" [value]="complaint">
+                    {{complaint}}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <mat-form-field>
+                <mat-placeholder>
+                  <mat-icon>assignment</mat-icon>
+                  Diagnosis Type
+                </mat-placeholder>
+                <mat-select formControlName="diagnosisType" multiple>
+                  <input id="searchTxt" matInput placeholder="search">
+                  <mat-option *ngFor="let diagnosisType of diagnosisTypes | diagnosisSearch : searchTxt" [value]="diagnosisType">
+                    {{diagnosisType}}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <textarea id="notes" rows="4" cols="100" placeholder="Notes"></textarea>
+            </div>
+
+          </div>
+        <div class="form-row">
+          <div class="col-md-6">
+            <button mat-fab  color="primary" type="submit"  [disabled]="isDisabled">Save</button>
+          </div>
+          <div class="col-md-6">
+            <button mat-fab color="warn" > Cancel</button>
+          </div>
+        </div>
+        </form>
+      </mat-tab>
+      <mat-tab label="Dental Chart">
+        <div>
+          <div style="width:20%;margin-left: 75%">
+            <mat-placeholder>
+              <mat-icon>
+                explore
+              </mat-icon>
+              Examination
+            </mat-placeholder>
+
+            <mat-select (selectionChange)="getDentalChartSelection($event)">
+              <mat-optgroup label="Tooth Investigation">
+                <mat-option value="Missing">
+                  Missing
+                </mat-option>
+                <mat-option  value="Implant">
+                  Implant
+                </mat-option>
+
+                <mat-option  value="PeriapicalAbcess">
+                  Periapical Abcess
+                </mat-option>
+              </mat-optgroup>
+              <mat-optgroup label="Caries Surfaces involved">
+                <mat-option  value="Caries">
+                  Caries
+                </mat-option>
+                <mat-option  value="Distal">
+                  Distal
+                </mat-option>
+                <mat-option  value="Buccal">
+                  Buccal
+                </mat-option>
+                <mat-option  value="Lingual/Palattal">
+                  Lingual/Palattal
+                </mat-option>
+                <mat-option  value=Occlussal>
+                  Occlusal
+                </mat-option>
+              </mat-optgroup>
+              <mat-optgroup label="Fracture">
+                <mat-option  value="Root">
+                  Root
+                </mat-option>
+                <mat-option  value="Crown">
+                  Crown
+                </mat-option>
+                <mat-option  value="Cervical">
+                  Cervical
+                </mat-option>
+                <mat-option  value="Incisal">
+                  Incisal
+                </mat-option>
+
+              </mat-optgroup>
+              <mat-optgroup label="Restoration">
+                <mat-option  value="Crown">
+                  Crown
+                </mat-option>
+                <mat-option  value="Bridge">
+                  Bridge
+                </mat-option>
+                <mat-option  value="Defective Crown">
+                  Defective Crown
+                </mat-option>
+                <mat-option  value="Amalgam Filling">
+                  Amalgam Filling
+                </mat-option>
+                <mat-option  value="Composite Filling">
+                  Composite Filling
+                </mat-option>
+                <mat-option  value="GIC Filling">
+                  GIC Filling
+                </mat-option>
+              </mat-optgroup>
+              <mat-optgroup label="Endodontic">
+                <mat-option  value="Root Canal">
+                  Root Canal
+                </mat-option>
+                <mat-option  value="Mesial">
+                  Improper Obturation
+                </mat-option>
+                <mat-option  value="Post and Care">
+                  Post and Core
+                </mat-option>
+              </mat-optgroup>
+              <mat-optgroup label="Extraction">
+                <mat-option  value="Properly Extracted">
+                  Properly Extracted
+                </mat-option>
+                <mat-option  value="Root Piece">
+                  Root Piece
+                </mat-option>
+
+              </mat-optgroup>
+            </mat-select>
+
+
+          </div>
+        </div>
+
+      <div class="form-row" style="height:400px" style="margin-left: 1%">
+        <div  style="width: 4%"  *ngFor="let f of fqnumbers">
+          <img src={{part1}}{{f}}{{part2}} id="{{f}}" style="width:25px;height:50px" (click)="selected_tooth_upperImage($event)" (dblclick)="tooth_upperImage($event)" />
+        </div>
+        <div class="vl"></div>
+        <div  style="width: 4%"  *ngFor="let s of sqnumbers">
+          <img src={{part1}}{{s}}{{part2}} id="{{s}}"  style="width:25px;height:50px" (click)="selected_tooth_upperImage($event)"  (dblclick)="tooth_upperImage($event)"/>
+        </div>
+      </div>
+
+        <div class="form-row" style="height:400px" style="margin-left: 1%">
+          <div  style="width: 4%"  *ngFor="let fql of fqnumbers">
+            <img src={{part1}}{{fql}}{{part3}} id="{{fql}}"  style="width:25px;height:25px" (click)="selected_tooth_frontImage($event)" (dblclick)="tooth_frontImage($event)"/>
+          </div>
+          <div class="vl"></div>
+          <div  style="width: 4%"  *ngFor="let sql of sqnumbers">
+            <img src={{part1}}{{sql}}{{part3}} id="{{sql}}" style="width:25px;height:25px" (click)="selected_tooth_frontImage($event)" (dblclick)="tooth_frontImage($event)"/>
+          </div>
+        </div>
+        <hr style="background-color: beige">
+        <div class="form-row" style="height:400px" style="margin-left: 1%">
+          <div  style="width: 4%"  *ngFor="let i of fqnumbers">
+            <label>{{i}}</label>
+          </div>
+          <div class="vl"></div>
+          <div  style="width: 4%"  *ngFor="let i of sqnumbers">
+            <label>{{i}}</label>
+          </div>
+        </div>
+
+        <hr style="background-color: yellow;height: 10px;">
+        <div class="form-row" style="height:400px" style="margin-left: 1%">
+          <div  style="width: 4%"  *ngFor="let tq of tqnumbers">
+            <img src={{part1}}{{tq}}{{part5}} id="{{tq}}"  style="width:25px;height:25px"  (click)="selected_lower_frontImage($event)" (dblclick)="lower_frontImage($event)"/>
+          </div>
+          <div class="vl"></div>
+          <div  style="width: 4%"  *ngFor="let fth of fthnumbers">
+            <img src={{part1}}{{fth}}{{part5}} id="{{fth}}" style="width:25px;height:25px"  (click)="selected_lower_frontImage($event)" (dblclick)="lower_frontImage($event)"/>
+          </div>
+
+        </div>
+        <div class="form-row" style="height:400px" style="margin-left: 1%">
+          <div  style="width: 4%"  *ngFor="let tql of tqnumbers">
+            <img src={{part1}}{{tql}}{{part4}}  id="{{tql}}" style="width:25px;height:50px"   (click)="selected_lower_toothImage($event)" (dblclick)="lower_toothImage($event)"/>
+          </div>
+          <div class="vl"></div>
+          <div  style="width: 4%"  *ngFor="let fthl of fthnumbers">
+            <img src={{part1}}{{fthl}}{{part4}} id="{{fthl}}" style="width:25px;height:50px"  (click)="selected_lower_toothImage($event)" (dblclick)="lower_toothImage($event)"/>
+          </div>
+
+        </div>
+        <hr style="background-color: beige">
+        <div class="form-row" style="height:400px" style="margin-left: 1%">
+          <div  style="width: 4%"  *ngFor="let i of tqnumbers">
+            <label>{{i}}</label>
+          </div>
+          <div class="vl"></div>
+          <div  style="width: 4%"  *ngFor="let i of fthnumbers">
+            <label>{{i}}</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-row">
+            <button mat-fab color="primary" style="margin-left: 25%" (click)="saveDiagnosis()" [disabled]="isDiagDisabled">Save</button>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Periodontal Chart"> Periodontal Chart </mat-tab>
+    </mat-tab-group>
+  </mat-tab>
+  <mat-tab label="Treatment">
+
+<div class="form-row">
+  <div class="col-md-6">
+    <mat-form-field>
+    <mat-placeholder>
+      <mat-icon>
+        person
+      </mat-icon>
+      Select Doctor
+    </mat-placeholder>
+    <mat-select (selectionChange)="getDoctorMobileNo($event)">
+
+      <mat-option *ngFor="let doctor of doctors" [value]="doctor.mobileNo">
+        Dr {{doctor.firstName}}
+      </mat-option>
+    </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-6">
+    <label>Appointment Date and Time</label>
+    <input type="datetime-local"  [(ngModel)]="selectedDate"  (change)="getPatientAppointmentNo()"/>
+  </div>
+  <table class="treatment" *ngIf="this.treatmentData?.length>0">
+    <tr>
+    <th>
+      Treatment Type
+    </th>
+    <th>
+      Tooth
+    </th>
+    <th>
+      Cost
+    </th>
+    <th>
+      Discount
+    </th>
+    <th>
+      Total Cost
+    </th>
+    <th>
+      Add
+    </th>
+
+    </tr>
+    <tr>
+       <td style="width:20%;">
+         <mat-form-field>
+           <mat-placeholder>
+
+             Select Treatment Type
+           </mat-placeholder>
+           <mat-select (selectionChange)="getTreatmentType($event)">
+
+             <mat-option *ngFor="let treatment of treatmentData" [value]="treatment">
+               {{treatment.treatmentType}}
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
+       </td>
+      <td>
+       {{this.patientAppointmentFormGroup.value.selectedTooth}}
+      </td>
+      <td>
+
+        <mat-form-field>
+          <mat-placeholder>
+            <mat-icon>money</mat-icon>
+            TreatmentCost
+          </mat-placeholder>
+
+            <input id="tratementCost" matInput value="{{this.selectedCost}}" [(ngModel)]="selectedCost">
+
+
+
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-placeholder>
+            <mat-icon>money</mat-icon>
+            Discount
+          </mat-placeholder>
+          <input id="discount" matInput [(ngModel)]="this.newItem.discount"  (change)="discountChanged()">
+        </mat-form-field>
+      </td>
+      <td>
+        {{this.newItem.totalAmount}}
+      </td>
+      <td>
+        <button mat-button (click)="addNewTreatment()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </td>
+
+    </tr>
+  </table>
+
+  <!--Added Items-->
+  <table class="treatment" >
+    <tr>
+    <th>
+      Treatment Type
+    </th>
+    <th>
+      Cost
+    </th>
+    <th>
+      Discount
+    </th>
+    <th>
+      Total Amount
+    </th>
+    </tr>
+   <tr *ngFor="let item of treatmentCosts; let i = index">
+     <td>
+       {{this.item.treatmentType}}
+     </td>
+     <td>
+       {{this.item.treatmentCost}}
+     </td>
+     <td>
+       {{this.item.discount}}
+     </td>
+     <td>
+       {{this.item.totalAmount}}
+     </td>
+     <td><button (click)="removeItem(i)">
+       <mat-icon>
+         delete
+       </mat-icon>
+     </button></td>
+   </tr>
+  </table>
+  <button mat-fab (click)="saveBill()" color="warn" [disabled]="isBillDisabled" style="margin-left: 40%">Save Bill</button>
+</div>
+
+  </mat-tab>
+  <mat-tab label="Prescription">
+    <table class="treatment" *ngIf="this.medicineData?.length>0">
+      <tr>
+        <th>
+          Medicine
+        </th>
+        <th>
+          Dosage
+        </th>
+        <th>
+          Frequency
+        </th>
+        <th>
+          Duration
+        </th>
+        <th>
+         Note
+        </th>
+        <th>
+          Add
+        </th>
+
+      </tr>
+      <tr>
+        <td style="width:20%;">
+          <mat-form-field>
+            <mat-placeholder>
+
+              Select Medicine
+            </mat-placeholder>
+            <mat-select (selectionChange)="getMedicine($event)">
+
+              <mat-option *ngFor="let medicine of medicineData" [value]="medicine">
+                {{medicine}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-placeholder>
+
+              Select Dosage
+            </mat-placeholder>
+            <mat-select (selectionChange)="getDosage($event)">
+
+              <mat-option *ngFor="let dosage of dosageData" [value]="dosage">
+                {{dosage}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+
+          <mat-form-field>
+            <mat-placeholder>
+
+              Select Frequency
+            </mat-placeholder>
+            <mat-select (selectionChange)="getFrequency($event)">
+
+              <mat-option *ngFor="let frequency of frequencyData" [value]="frequency">
+                {{frequency}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-placeholder>
+
+              Select Duration
+            </mat-placeholder>
+            <mat-select (selectionChange)="getDuration($event)">
+
+              <mat-option *ngFor="let duration of durationData" [value]="duration">
+                {{duration}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-placeholder>
+
+              Notes
+            </mat-placeholder>
+            <mat-select (selectionChange)="getNote($event)">
+
+              <mat-option *ngFor="let note of medicineNoteData" [value]="note">
+                {{note}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <button mat-button (click)="addNewMedicine()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </td>
+
+      </tr>
+    </table>
+    <!--Added Items-->
+    <table class="treatment" >
+      <tr>
+        <th>
+          Medicine
+        </th>
+        <th>
+         Dosage
+        </th>
+        <th>
+          Frequency
+        </th>
+        <th>
+          Duration
+        </th>
+        <th>
+          Notes
+        </th>
+      </tr>
+      <tr *ngFor="let item of medicines; let i = index">
+        <td>
+          {{this.item.medicine}}
+        </td>
+        <td>
+          {{this.item.dosage}}
+        </td>
+        <td>
+          {{this.item.frequency}}
+        </td>
+        <td>
+          {{this.item.duration}}
+        </td>
+        <td>
+          {{this.item.notes}}
+        </td>
+        <td><button (click)="removeMedicineItem(i)">
+          <mat-icon>
+            delete
+          </mat-icon>
+        </button></td>
+      </tr>
+    </table>
+    <button mat-fab (click)="savePrescription()" color="warn" style="margin-left: 40%" [disabled]="isPrescDisabled">Save Bill</button>
+  </mat-tab>
+  <mat-tab label="Billing">
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
+      <a class="navbar-brand" href="#">VEB Dental Care Invoice</a>
+    </nav>
+    <form #invoiceForm="ngForm">
+    <div class="container-fluid pt-2">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card border-secondary">
+            <div class="card-body">
+              <h4 class="card-title">Billing Information</h4>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" readonly value="VEB Dental Care">
+                  </div>
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea class="form-control" name="address" id="address" row="3" readonly >
+                No.16, VEB Sai Villa,
+                Dr.Prakasam Nagar,
+                Thiruninravur,
+                Chennai-602024
+
+                    </textarea>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="email">Email ID</label>
+                    <input type="email" class="form-control" name="email" id="email" readonly value="drvignesh1995@gmail.com">
+                  </div>
+                  <div class="form-group">
+                    <label for="contactNo">Contact No.</label>
+                    <input type="number" class="form-control" name="contactNo" id="contactNo" readonly value="8056010299">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group" *ngIf="patient!=null">
+                    <label>{{patient.title}}.{{patient.firstName}} {{patient.lastName}}</label>
+                  </div>
+
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group"  *ngIf="patient!=null">
+                    <label>{{patient.gender}}</label>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card border-secondary mt-2">
+            <div class="card-body">
+              <h4 class="card-title d-flex justify-content-between">Treatment Details <button type="button"
+                                                                                          class="btn btn-secondary">+</button></h4>
+              <div class="row">
+                <table class="table" *ngIf=" this.patientAppointmentFormGroup.value.treatmentCosts?.length>0">
+                  <thead>
+                  <tr>
+                    <th width="25%">Treatment Type</th>
+                    <th width="25%">Cost</th>
+                    <th width="25%">Discount</th>
+                    <th width="25%">Amount</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let treatment of treatmentCosts">
+                    <td scope="row">
+                      {{treatment.treatmentType}}
+                    </td>
+                    <td>
+                      {{treatment.treatmentCost}}
+                    </td>
+                    <td>
+                      {{treatment.discount}}
+                    </td>
+                    <td>
+
+                      {{treatment.totalAmount}}
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card border-secondary mt-2">
+            <div class="card-body">
+              <h4 class="card-title">Additional Details</h4>
+              <div class="form-group">
+                <textarea class="form-control" name="additionalDetails" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <button type="button" name="" class="btn btn-secondary btn-lg btn-block"
+                  (click)="invoiceForm.valid ? generatePDF('download') : ''">Download Invoice</button>
+          <button type="button" name="" class="btn btn-secondary btn-lg btn-block"
+                  (click)="invoiceForm.valid ? generatePDF('print') : ''">Print Invoice</button>
+          <button type="button" name="" class="btn btn-secondary btn-lg btn-block"
+                  (click)="invoiceForm.valid ? generatePDF() : ''">Open Invoice</button>
+        </div>
+      </div>
+    </div>
+    </form>
+
+  </mat-tab>
+  <mat-tab label="Prescription Report">
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
+      <a class="navbar-brand" href="#">VEB Dental Care Invoice</a>
+    </nav>
+    <form #prescriptionForm="ngForm">
+      <div class="container-fluid pt-2">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card border-secondary">
+              <div class="card-body">
+                <h4 class="card-title">Prescription Information</h4>
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" name="name" id="clinicName" readonly value="VEB Dental Care">
+                    </div>
+                    <div class="form-group">clin
+                      <label for="address">Address</label>
+                      <textarea class="form-control" name="address" id="clinicAddress" row="3" readonly >
+                No.16, VEB Sai Villa,
+                Dr.Prakasam Nagar,
+                Thiruninravur,
+                Chennai-602024
+
+                    </textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="email">Email ID</label>
+                      <input type="email" class="form-control" name="email" id="clinicEmail" readonly value="drvignesh1995@gmail.com">
+                    </div>
+                    <div class="form-group">
+                      <label for="contactNo">Contact No.</label>
+                      <input type="number" class="form-control" name="contactNo" id="clinicContactNo" readonly value="8056010299">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group" *ngIf="patient!=null">
+                      <label>{{patient.title}}.{{patient.firstName}} {{patient.lastName}}</label>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group"  *ngIf="patient!=null">
+                      <label>{{patient.gender}}</label>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card border-secondary mt-2">
+              <div class="card-body">
+                <h4 class="card-title d-flex justify-content-between">Prescription Details <button type="button"
+                                                                                                class="btn btn-secondary">+</button></h4>
+                <div class="row">
+                  <table class="table" *ngIf=" this.patientAppointmentFormGroup.value.medicines?.length>0">
+                    <thead>
+                    <tr>
+                      <th width="25%">Medicine</th>
+                      <th width="25%">Dosage</th>
+                      <th width="25%">Frequency</th>
+                      <th width="25%">Duration</th>
+                      <th width="25%">Note</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let medicineData of medicines">
+                      <td scope="row">
+                        {{medicineData.medicine}}
+                      </td>
+                      <td>
+                        {{medicineData.dosage}}
+                      </td>
+                      <td>
+                        {{medicineData.frequency}}
+                      </td>
+                      <td>
+
+                        {{medicineData.duration}}
+                      </td>
+                      <td>
+
+                        {{medicineData.notes}}
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="card border-secondary mt-2">
+              <div class="card-body">
+                <h4 class="card-title">Additional Details</h4>
+                <div class="form-group">
+                  <textarea class="form-control" name="additionalDetails" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-4">
+            <button type="button" name="" class="btn btn-secondary btn-lg btn-block"
+                    (click)="prescriptionForm.valid ? generatePrescriptionPDF('download') : ''">Download Prescription</button>
+            <button type="button" name="" class="btn btn-secondary btn-lg btn-block"
+                    (click)="prescriptionForm.valid ? generatePrescriptionPDF('print') : ''">Print Prescription</button>
+            <button type="button" name="" class="btn btn-secondary btn-lg btn-block"
+                    (click)="prescriptionForm.valid ? generatePrescriptionPDF() : ''">Open Prescription</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </mat-tab>
+</mat-tab-group>
+</div>
+</div>
+<!--
+<div class="basic-container">
+  <mat-spinner strokeWidth="10" mode="determinate"
+               value="100" class="avatar" [diameter]="100" *ngIf="loading"></mat-spinner>
+
+</div>
+-->

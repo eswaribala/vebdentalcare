@@ -1,0 +1,113 @@
+<div class="mat-dialog-title">
+  <h1>Diagnosis Form</h1>
+</div>
+<div>
+  <div style="width:50%;">
+    <mat-placeholder>
+      <mat-icon>
+        explore
+      </mat-icon>
+      Examination
+    </mat-placeholder>
+
+    <mat-select (selectionChange)="getDentalChartSelection($event)" [(ngModel)]="data.opted">
+      <mat-optgroup label="Tooth Investigation">
+        <mat-option value="Missing">
+          Missing
+        </mat-option>
+        <mat-option  value="Implant">
+          Implant
+        </mat-option>
+
+        <mat-option  value="PeriapicalAbcess">
+          Periapical Abcess
+        </mat-option>
+      </mat-optgroup>
+      <mat-optgroup label="Caries Surfaces involved">
+        <mat-option  value="Caries">
+          Caries
+        </mat-option>
+        <mat-option  value="Distal">
+          Distal
+        </mat-option>
+        <mat-option  value="Buccal">
+          Buccal
+        </mat-option>
+        <mat-option  value="Lingual/Palattal">
+          Lingual/Palattal
+        </mat-option>
+        <mat-option  value=Occlussal>
+          Occlusal
+        </mat-option>
+      </mat-optgroup>
+      <mat-optgroup label="Fracture">
+        <mat-option  value="Root">
+          Root
+        </mat-option>
+        <mat-option  value="Crown">
+          Crown
+        </mat-option>
+        <mat-option  value="Cervical">
+          Cervical
+        </mat-option>
+        <mat-option  value="Incisal">
+          Incisal
+        </mat-option>
+
+      </mat-optgroup>
+      <mat-optgroup label="Restoration">
+        <mat-option  value="Crown">
+          Crown
+        </mat-option>
+        <mat-option  value="Bridge">
+          Bridge
+        </mat-option>
+        <mat-option  value="Defective Crown">
+          Defective Crown
+        </mat-option>
+        <mat-option  value="Amalgam Filling">
+          Amalgam Filling
+        </mat-option>
+        <mat-option  value="Composite Filling">
+          Composite Filling
+        </mat-option>
+        <mat-option  value="GIC Filling">
+          GIC Filling
+        </mat-option>
+      </mat-optgroup>
+      <mat-optgroup label="Endodontic">
+        <mat-option  value="Root Canal">
+          Root Canal
+        </mat-option>
+        <mat-option  value="Mesial">
+          Improper Obturation
+        </mat-option>
+        <mat-option  value="Post and Care">
+          Post and Core
+        </mat-option>
+      </mat-optgroup>
+      <mat-optgroup label="Extraction">
+        <mat-option  value="Properly Extracted">
+          Properly Extracted
+        </mat-option>
+        <mat-option  value="Root Piece">
+          Root Piece
+        </mat-option>
+
+      </mat-optgroup>
+    </mat-select>
+
+
+  </div>
+</div>
+<div class="form-row">
+  <div class="form-group col-md-12">
+    <div mat-dialog-actions>
+
+      <button style="background-color: navy; color: white" mat-button (click)="onNoClick()">No Thanks</button>
+      <button style="background-color: navy;color: white" mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    </div>
+  </div>
+</div>
+
+

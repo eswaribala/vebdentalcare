@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/b29781ca-baa0-4c67-875f-44f3f24aee03/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/vebdentalcare",
+    "appService.deploySubpath": "dist\\vebdentalcare"
+}

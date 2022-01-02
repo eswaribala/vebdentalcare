@@ -1,0 +1,10 @@
+
+<router-outlet (activate)="panSelected()">
+  <div class="basic-container">
+    <mat-spinner strokeWidth="10" mode="determinate"
+                 value="100" class="avatar" [diameter]="100" *ngIf="loading"></mat-spinner>
+
+  </div>
+
+</router-outlet>
+
