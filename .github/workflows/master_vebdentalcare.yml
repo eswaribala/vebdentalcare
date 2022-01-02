@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'vebdentalcare'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C35BFFECB5F449F5B0619136BAF759B2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CB3EAF1763CC441885EB9C5A5657E882 }}
           package: .
