@@ -13,6 +13,7 @@ export class AppointmentComponent implements OnInit {
   appointmentsArray:any;
   doctors:any;
   mobileNo:any;
+  isSuccessful = false;
   constructor(public fb: FormBuilder,private authService:AuthService) {
 
 }
@@ -73,6 +74,7 @@ console.log(appointmentData);
    this.authService.addDoctorAppointments(appointmentData).subscribe(response=>
    {
      console.log(response);
+     this.isSuccessful = true;
    })
 
   }
