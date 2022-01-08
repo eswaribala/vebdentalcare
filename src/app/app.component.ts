@@ -72,14 +72,8 @@ export class AppComponent implements OnInit {
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-     // this.roles = user.roles;
-      if(window.sessionStorage.getItem("roles")!=undefined) {
-        // @ts-ignore
-        this.roles.push(window.sessionStorage.getItem("roles").toString());
-
-        this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-        this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-      }
+      this.roles = user.roles;
+      this.showAdminBoard=true;
       this.username = user.username;
     }
 

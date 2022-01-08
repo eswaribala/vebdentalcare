@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       data => {
 
         console.log(data);
-        this.tokenStorage.saveToken(data);
+        this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
@@ -55,9 +55,9 @@ export class LoginComponent implements OnInit {
 
   reloadPage(): void {
    window.sessionStorage.setItem("userName",this.form.username);
-   window.sessionStorage.setItem("roles","ROLE_ADMIN");
+   //window.sessionStorage.setItem("roles","ROLE_ADMIN");
     window.location.reload();
     this.userName=window.sessionStorage.getItem("userName");
-   // this.router.navigate(['/menu']);
+   this.router.navigate(['/menu']);
   }
 }

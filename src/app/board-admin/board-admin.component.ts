@@ -10,7 +10,7 @@ export class BoardAdminComponent
   //implements OnInit
 {
   content?: string;
-/*
+
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -24,5 +24,5 @@ export class BoardAdminComponent
     );
   }
 
- */
+
 }

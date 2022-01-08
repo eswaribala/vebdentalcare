@@ -11,7 +11,7 @@ import {
   treatmentData
 } from "../models/menudata";
 
-const AUTH_API = 'http://52.140.2.132:7070/';
+const AUTH_API = 'http://localhost:7070/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
